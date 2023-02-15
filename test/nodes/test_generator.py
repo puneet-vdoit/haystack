@@ -170,4 +170,3 @@ def test_openai_answer_generator_pipeline_max_tokens(openai_generator):
     assert len(results["answers"]) == 1
     token_count = results["answers"][0].answer.split()
     assert 1 < len(token_count) <= 3
-
