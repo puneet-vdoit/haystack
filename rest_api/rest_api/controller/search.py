@@ -59,7 +59,7 @@ def query(request: QueryRequest):
         return result
 
 @router.post("/predict")
-def query(request: QueryRequest):
+def predict(request: QueryRequest):
     """
     This endpoint receives the question as a string and allows the requester to set
     additional parameters that will be passed on to the Haystack pipeline.
