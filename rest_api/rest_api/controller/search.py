@@ -65,13 +65,16 @@ def predict(request: QueryRequest):
     additional parameters that will be passed on to the Haystack pipeline.
     """
     # Initialize a Pipeline (this time without a reader) and ask questions
-    pipeline = Pipeline()
-    pipeline.add_node(component=retriever, name="Retriever", inputs=["Query"])
-    pipeline.add_node(component=doc_to_answers, name="Docs2Answers", inputs=["Retriever"])
+    #pipeline = Pipeline()
+    #pipeline.add_node(component=retriever, name="Retriever", inputs=["Query"])
+    #pipeline.add_node(component=doc_to_answers, name="Docs2Answers", inputs=["Retriever"])
 
     # Ask a question
-    prediction = pipeline.run(query="Why do I need 2FA?", params={"Retriever": {"top_k": 5}})
-    return prediction
+    #prediction = pipeline.run(query="Why do I need 2FA?", params={"Retriever": {"top_k": 5}})
+    #return prediction
+    with concurrency_limiter.run():
+        result = _process_request(query_pipeline, request)
+        return result
 
 @send_event_if_public_demo
 def _process_request(pipeline, request) -> Dict[str, Any]:
